@@ -25,3 +25,4 @@ def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
     min_max_tup = tuple(min_max_list)
 
     return min_max_tup
+print(find_maximum_and_minimum(r'E:\University\EPAM\hw1\test.txt'))
