@@ -18,7 +18,15 @@ Output: 2, 1
 
 """
 from typing import List, Tuple
+from collections import Counter
 
 
 def major_and_minor_elem(inp: List) -> Tuple[int, int]:
-    ...
+    maj_min=[]
+    conter = Counter(inp)
+    conter = sorted(conter.items(), key=lambda items: items[1], reverse=True)
+    if conter[0][1] > len(inp)//2:
+        maj_min.append(conter[0][0])
+
+    maj_min.append(conter[-1][0])
+    return maj_min

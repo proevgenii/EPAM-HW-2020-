@@ -15,7 +15,18 @@ assert combinations([1, 2], [3, 4]) == [
 ]
 """
 from typing import List, Any
+from itertools import product
+
+def combinations_lists(*args: List[Any]) -> List[List]:
+    #(list(product(*args))
+    #comb = [[i,j] for i in args[0] for j in args[1]]
+    combinations = [[]]
+    tuples=[]
+    for lists in args:
+        tuples.append(tuple(lists))
+
+    for lists in tuples:
+        combinations = [head + [tail] for head in combinations for tail in lists]
+    return combinations
 
 
-def combinations(*args: List[Any]) -> List[List]:
-    ...
