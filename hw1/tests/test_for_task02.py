@@ -11,17 +11,7 @@ from hw1.task02 import check_fibonacci
         ([0], False),
         ([1], False),
         (
-            [
-                0,
-                1,
-                1,
-                2,
-                3,
-                5,
-                8,
-                13,
-                21,
-            ],
+            [0, 1, 1, 2],
             True,
         ),
     ],
