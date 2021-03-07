@@ -19,9 +19,9 @@ from typing import Tuple
 def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
     min_max_list = []
     with open(file_name) as fi:
-        for line in fi:
-            line = [int(i) for i in line.strip("\n").split()]
-            min_max_list.append(min(line))
-            min_max_list.append(max(line))
-            min_max_tup = tuple(min_max_list)
+        file = [int(char) for line in fi for char in line.split()]
+    min_max_list.append(min(file))
+    min_max_list.append(max(file))
+    min_max_tup = tuple(min_max_list)
+
     return min_max_tup

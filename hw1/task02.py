@@ -13,12 +13,12 @@ def check_fibonacci(data: Sequence) -> None:
     if len(data) < 3:
         return False
 
-    n = int(len(data)/3)
+    n = int(len(data) / 3)
     a = data[::3]
     b = data[1::3]
     c = data[2::3]
     for i in range(n):
-        if not a[i]+b[i] == c[i]:
+        if not a[i] + b[i] == c[i]:
             return False
         else:
             return True
