@@ -22,4 +22,12 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    ...
+    cached_val = {}
+
+    def decorator(*args, **kwargs):
+        key = tuple(args)
+        if key not in cached_val:
+            cached_val[key] = func(*args, **kwargs)
+        return cached_val[key]
+
+    return decorator
