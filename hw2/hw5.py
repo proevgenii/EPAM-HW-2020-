@@ -18,6 +18,15 @@ import string
 
 
 def custom_range(rule, start=None, stop=None, step=None):
+
+    """
+    >>> custom_range(string.ascii_lowercase, stop='g')
+    ['a', 'b', 'c', 'd', 'e', 'f']
+    >>> custom_range(string.ascii_lowercase, start='g', stop='p')
+    ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
+    >>> custom_range(string.ascii_lowercase, start='p', stop='g', step=-2)
+    ['p', 'n', 'l', 'j', 'h']
+    """
     outp = []
     if not start:
         start = 0

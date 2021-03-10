@@ -19,8 +19,12 @@ from typing import Any, List
 
 
 def combinations_lists(*args: List[Any]) -> List[List]:
-    # (list(product(*args))
-    # comb = [[i,j] for i in args[0] for j in args[1]]
+    """
+    >>> combinations_lists([1, 2], [3, 4])
+    [[1, 3], [1, 4], [2, 3], [2, 4]]
+    >>> combinations_lists([1], [3])
+    [[1, 3]]
+    """
     combinations = [[]]
     tuples = []
     for lists in args:
@@ -29,3 +33,6 @@ def combinations_lists(*args: List[Any]) -> List[List]:
     for lists in tuples:
         combinations = [head + [tail] for head in combinations for tail in lists]
     return combinations
+
+
+print(combinations_lists([1, 2], [3, 4]))

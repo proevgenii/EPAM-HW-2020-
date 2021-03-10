@@ -14,7 +14,7 @@ Output: 3, 2
 Example 2:
 
 Input: [2,2,1,1,1,2,2]
-Output: 2, 1
+Output: 3, 2
 
 """
 from collections import Counter
@@ -22,6 +22,14 @@ from typing import List, Tuple
 
 
 def major_and_minor_elem(inp: List) -> Tuple[int, int]:
+    """
+    >>> major_and_minor_elem([3,2,3])
+    [3, 2]
+    >>> major_and_minor_elem([2,2,1,1,1,2,2])
+    [2, 1]
+    >>> major_and_minor_elem([0,0,0,0,1,1])
+    [0, 1]
+    """
     maj_min = []
     conter = Counter(inp)
     conter = sorted(conter.items(), key=lambda items: items[1], reverse=True)
