@@ -47,12 +47,3 @@ sample_data = [
 # make_filter(name='polly', type='bird').apply(sample_data) should return only second entry from the list
 
 # There are multiple bugs in this code. Find them all and write tests for faulty cases.
-
-
-positive_even = Filter(
-    (lambda a: a % 2 == 0, lambda a: a > 0, lambda a: isinstance(a, int))
-)
-print(positive_even.apply(range(100)))
-
-a = make_filter(name="polly", type="bird")
-print(a.apply(sample_data))
