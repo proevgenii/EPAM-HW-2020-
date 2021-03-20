@@ -7,20 +7,24 @@
     5) Find most common non ascii char for document
 """
 import re
-from typing import List
 import string
+from typing import List
+
 
 def get_longest_diverse_words(file_path: str) -> List[str]:
-    with open(file_path, encoding='unicode-escape', errors='replace') as fi:
+    with open(file_path, encoding="unicode-escape", errors="replace") as fi:
         words_longest = sorted(
-            [word for line in fi for word in re.findall(r'\w+', line.replace('-', '').replace("'", ''))],
+            [
+                word
+                for line in fi
+                for word in re.findall(r"\w+", line.replace("-", "").replace("'", ""))
+            ],
             key=len,
             reverse=True,
         )
         words_uniq = sorted(words_longest, key=set, reverse=True)[0:11:1]
 
     return words_uniq
-
 
 
 def get_rarest_char(file_path: str) -> str:
@@ -32,7 +36,7 @@ def get_rarest_char(file_path: str) -> str:
     """
 
     char_dict = {}
-    with open(file_path, encoding='unicode-escape', errors='replace') as fi:
+    with open(file_path, encoding="unicode-escape", errors="replace") as fi:
         for char in fi.read().strip():
             if char in char_dict:
                 char_dict[char] += 1
@@ -48,10 +52,11 @@ def count_punctuation_chars(file_path: str) -> int:
     >>> count_punctuation_chars('data.txt')
     8277
     """
-    with open(file_path, encoding='unicode-escape', errors='replace') as fi:
+    with open(file_path, encoding="unicode-escape", errors="replace") as fi:
         file_text = fi.read()
     chars_punc = sum(char in string.punctuation for char in file_text)
     return chars_punc
+
 
 def count_non_ascii_chars(file_path: str) -> int:
     """
@@ -81,6 +86,8 @@ def get_most_common_non_ascii_char(file_path: str) -> str:
                 elif not char.isascii() and char not in non_ascii:
                     non_ascii[char] = 1
 
-    return (sorted(non_ascii.items(), key=lambda items: items[1], reverse=True)[0][0] if len(non_ascii) > 0 else None)
-
-print(get_most_common_non_ascii_char(r'E:\University\EPAM\hw2\file.txt'))
+    return (
+        sorted(non_ascii.items(), key=lambda items: items[1], reverse=True)[0][0]
+        if len(non_ascii) > 0
+        else None
+    )

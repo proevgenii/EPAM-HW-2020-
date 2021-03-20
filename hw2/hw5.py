@@ -36,4 +36,3 @@ def custom_range(rule, start=None, stop=None, step=None):
     stop = rule.index(stop)
 
     return list(rule[start:stop:step])
-

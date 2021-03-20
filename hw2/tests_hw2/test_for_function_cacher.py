@@ -5,7 +5,7 @@ from hw2.hw4 import cache
 
 @cache
 def ackermann(m, n):
-    ''' just a function for sample'''
+    """ just a function for sample"""
     if not m:
         return n + 1
     elif not n:
@@ -16,6 +16,6 @@ def ackermann(m, n):
 
 @pytest.mark.parametrize(["m", "n", "number_of_calls"], [(3, 3, 4), (1, 1, 1)])
 def test_function_has_called(m, n, number_of_calls):
-    ''' this function, checked if decoration function was called'''
+    """ this function, checked if decoration function was called"""
     ackermann(m, n)
     assert ackermann.called >= number_of_calls
