@@ -27,7 +27,6 @@ def custom_range(rule, start=None, stop=None, step=None):
     >>> custom_range(string.ascii_lowercase, start='p', stop='g', step=-2)
     ['p', 'n', 'l', 'j', 'h']
     """
-    outp = []
     if not start:
         start = 0
     else:
@@ -36,7 +35,5 @@ def custom_range(rule, start=None, stop=None, step=None):
         step = 1
     stop = rule.index(stop)
 
-    index = list(range(start, stop, step))
-    for elem in index:
-        outp.append(rule[elem])
-    return outp
+    return list(rule[start:stop:step])
+

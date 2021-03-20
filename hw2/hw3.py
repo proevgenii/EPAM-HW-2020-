@@ -33,6 +33,3 @@ def combinations_lists(*args: List[Any]) -> List[List]:
     for lists in tuples:
         combinations = [head + [tail] for head in combinations for tail in lists]
     return combinations
-
-
-print(combinations_lists([1, 2], [3, 4]))

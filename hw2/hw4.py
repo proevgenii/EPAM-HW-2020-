@@ -35,4 +35,3 @@ def cache(func: Callable) -> Callable:
         return cached_val[key]
 
     return decorator
-    return cache
