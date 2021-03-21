@@ -11,7 +11,6 @@ class Filter:
         self.functions = functions
 
     def apply(self, data):
-
         return [item for item in data if all(i(item) for i in self.functions)]
 
 
@@ -24,13 +23,16 @@ def make_filter(**keywords):
     """
     Generate filter object for specified keywords
     """
+
     filter_funcs = []
     for key, values in keywords.items():
-
+        print(key, values, keywords.items())
         def keyword_filter_func(value):
-            return value[key] == values
-
-        filter_funcs.append(keyword_filter_func)
+            print(1, value)
+            if key in value:
+                return value[key] == values
+            else: return None
+    filter_funcs.append(keyword_filter_func)
     return Filter(filter_funcs)
 
 
@@ -47,3 +49,4 @@ sample_data = [
 # make_filter(name='polly', type='bird').apply(sample_data) should return only second entry from the list
 
 # There are multiple bugs in this code. Find them all and write tests for faulty cases.
+

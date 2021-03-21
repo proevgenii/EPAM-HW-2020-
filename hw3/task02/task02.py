@@ -12,10 +12,8 @@ def slow_calculate(value):
     return sum(struct.unpack("<" + "B" * len(data), data))
 
 
-def f():
-
+def function_for_parallelize_calculating_sum():
     start_time = time.time()
-    if __name__ == "__main__":
-        with Pool(28) as p:
-            summ = sum(p.map(slow_calculate, range(500)))
-            return int((time.time() - start_time))
+    with Pool(28) as p:
+        result = sum(p.map(slow_calculate, range(500)))
+    return int((time.time() - start_time))
