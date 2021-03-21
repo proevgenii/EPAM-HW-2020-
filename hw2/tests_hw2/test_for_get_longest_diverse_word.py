@@ -2,9 +2,12 @@ import pytest
 
 from hw2.hw1 import get_longest_diverse_words
 
-file = open("test.txt", "w")
-file.write("abcdefgh abcdef abcdeeeee")
-file.close()
+
+@pytest.fixture
+def file_creater():
+    file = open("test.txt", "w")
+    file.write("abcdefgh abcdef abcdeeeee")
+    file.close()
 
 
 @pytest.mark.parametrize(
@@ -15,16 +18,16 @@ file.close()
             "data.txt",
             [
                 "Verfassungsverletzungen",
-                "u00fcberindividuellen",
+                "politischstrategischen",
+                "Wiederbelebungsübungen",
+                "Werkstättenlandschaft",
                 "Geschichtsphilosophie",
+                "zoologischpolitischen",
+                "Werkstättenlandschaft",
                 "Entscheidungsschlacht",
                 "Selbstbezichtigungen",
-                "u00f6lkerungsabschub",
                 "Geschichtsunterricht",
-                "u00e4monengeschichte",
                 "Gewissenserforschung",
-                "menschenfreundlichen",
-                "Einzelwissenschaften",
             ],
         ),
     ],
