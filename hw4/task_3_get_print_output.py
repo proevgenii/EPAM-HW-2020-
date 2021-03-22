@@ -23,13 +23,14 @@ You will learn:
 
 
 """
-import re
 import sys
 
 
 def my_precious_logger(text: str):
-    result = re.findall(r"^\w+", text)  # get only first word
-    if result == ["error"]:
+    if text.strip().startswith("error"):
         return print(text, file=sys.stderr)
     else:
         return print(text, file=sys.stdout)
+
+
+my_precious_logger(" error:")
