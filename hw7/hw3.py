@@ -49,4 +49,3 @@ def tic_tac_toe_checker(board: List[List]) -> str:
         return "unfinished" if any("-" in r for r in board) else "draw"
 
 
-print(tic_tac_toe_checker([["o", "x", "o"], ["o", "x", "o"], ["-", "x", "x"]]))
