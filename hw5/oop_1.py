@@ -45,8 +45,7 @@ class Homework:
         self.text = task_text
         self.day_to_do = day_to_do
         self.deadline = timedelta(day_to_do)
-
-    created = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+        self.created = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 
     def is_active(self):
         return bool(timedelta(days=self.day_to_do))
@@ -57,7 +56,8 @@ class Teacher:
         self.first_name = first_name
         self.last_name = last_name
 
-    def create_homework(self, task_text: str, day_to_do: int):
+    @staticmethod
+    def create_homework(task_text: str, day_to_do: int):
         return Homework(task_text, day_to_do)
 
 
@@ -66,7 +66,8 @@ class Student:
         self.first_name = first_name
         self.last_name = last_name
 
-    def do_homework(self, Homework):
+    @classmethod
+    def do_homework(cls, Homework):
         return Homework if Homework.is_active() else print("You are late ")
 
 
