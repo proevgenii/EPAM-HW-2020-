@@ -20,14 +20,16 @@ import functools
 
 
 def print_result(func):
-    @functools.wraps(func)
+    # Возможно ли это сделать, если позволено добавлять строки только в этом месте ???
     def wrapper(*args, **kwargs):
         """Function-wrapper which print result of an original function"""
         result = func(*args, **kwargs)
         print(result)
         return result
 
-    wrapper.__original_func = wrapper.__wrapped__
+    wrapper.__original_func = func.__call__
+    wrapper.__name__ = func.__name__
+    wrapper.__doc__ = func.__doc__
     return wrapper
 
 
