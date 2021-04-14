@@ -25,6 +25,24 @@ You will learn:
 **** https://docs.python.org/3/tutorial/errors.html#raising-exceptions
 """
 
+file = open("test.txt", "w")
+file.write("1 2 3\n2\n3")
+file.close()
+
 
 def read_magic_number(path: str) -> bool:
-    ...
+    try:
+        with open(path, "r") as fi:
+            try:
+                first_line = float(fi.readline())
+                if 1 < first_line <= 3:
+                    return True
+                else:
+                    return False
+            except ValueError:
+                raise ValueError(
+                    f"Invalid data in firs line of '{path}', not a number "
+                )
+
+    except IOError:
+        raise IOError("File not accessible")

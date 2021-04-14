@@ -23,7 +23,14 @@ You will learn:
 
 
 """
+import sys
 
 
 def my_precious_logger(text: str):
-    pass
+    if text.strip().startswith("error"):
+        return print(text, file=sys.stderr)
+    else:
+        return print(text, file=sys.stdout)
+
+
+my_precious_logger(" error:")
