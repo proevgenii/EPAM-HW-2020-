@@ -17,4 +17,13 @@ from typing import Tuple
 
 
 def find_maximum_and_minimum(file_name: str) -> Tuple[int, int]:
-    ...
+    min_max_list = []
+    file = []
+    with open(file_name) as fi:
+        for line in fi:
+            file.append(int(line))
+    min_max_list.append(min(file))
+    min_max_list.append(max(file))
+    min_max_tup = tuple(min_max_list)
+
+    return min_max_tup

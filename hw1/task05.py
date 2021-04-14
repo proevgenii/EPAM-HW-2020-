@@ -11,6 +11,22 @@ Examples:
 """
 from typing import List
 
+result = []
+
 
 def find_maximal_subarray_sum(nums: List[int], k: int) -> int:
-    ...
+    if len(nums) < k:
+        return 'Ivalid "k" value '
+    while k > 1:
+        summ = 0
+        for i in range(k):
+            summ += nums[i]
+
+        sum_iter = summ
+        for j in range(k, len(nums)):
+            sum_iter += nums[j] - nums[j - k]
+            summ = max(summ, sum_iter)
+            result.append(max(summ, sum_iter))
+
+        k = k - 1
+    return max(result)
