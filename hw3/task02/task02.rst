@@ -6,9 +6,11 @@ Here's a not very efficient calculation function that calculates something impor
     import hashlib
 
     def slow_calculate(value):
+
         """Some weird voodoo magic calculations"""
         time.sleep(random.randint(1,3))
         data = hashlib.md5(str(value).encode()).digest()
+        print("--- %s seconds ---" % (time.time() - start_time))
         return sum(struct.unpack('<' + 'B' * len(data), data))
 
 Calculate total sum of slow_calculate() of all numbers starting from 0 to 500.
