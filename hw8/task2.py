@@ -1,5 +1,5 @@
-import sqlite3
 import os.path
+import sqlite3
 
 
 class TableData:
@@ -16,8 +16,6 @@ class TableData:
         """
         self.database_name = database_name
         self.table_name = table_name
-        self.conn = sqlite3.connect(database_name)
-        self.cursor = self.conn.cursor()
 
     def __len__(self):
         """
@@ -25,8 +23,7 @@ class TableData:
         :return: int
         """
         self.cursor.execute(f'select count(*) from {self.table_name}')
-        data = self.cursor.fetchall()
-        return data[0][0]
+        return self.cursor.fetchone()[0]
 
     def __getitem__(self, item):
         """
@@ -34,16 +31,10 @@ class TableData:
         :param item: type: str
         :return: Should return single data row from table with name == 'item'
         """
-        data = self.cursor.execute(f" SELECT * from {self.table_name}")
-        names = [description[0] for description in data.description]
-        if item in names:
-            data = [data[0] for data in self.cursor.execute(f'SELECT {item} from {self.table_name} ').fetchall()]
-            return data
-        else:
-            self.cursor.execute(f'SELECT * from {self.table_name} where name = "{item}"')
-            data = self.cursor.fetchall()
-        return data if data else (
-            f' There is no row: "{item}" in table: "{self.table_name}" in DB: "{self.database_name}"')
+        self.cursor.execute(
+            f'SELECT * from {self.table_name} where name=:name', {"name": item}
+        )
+        return self.cursor.fetchone()
 
     def __contains__(self, item):
         """
@@ -55,14 +46,35 @@ class TableData:
         data = self.cursor.fetchall()
         return True if data else False
 
-    #def __next__(self):
-      #  self.cursor.execute(f'Select * from {self.table_name}')
-       # return self.cursor.__next__()
-
     def __iter__(self):
         """
         Allows to iterate over a table rows
         :return: This method should return a new iterator object that can iterate over all the objects in the container.
         """
-        self.cursor.execute(f'Select * from {self.table_name}')
-        return self.cursor.__iter__()
+
+        def dict_fact(row):
+            dict = {}
+            for i, c in enumerate(self.cursor.description):
+                dict[c[0]] = row[i]
+            return dict
+
+        yield from (
+            dict_fact(row)
+            for row in self.cursor.execute(f"SELECT * from {self.table_name}")
+        )
+
+    def __enter__(self):
+        self.conn = sqlite3.connect(self.database_name)
+        self.cursor = self.conn.cursor()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.conn.close()
+
+
+if __name__ =='__main__':
+    with TableData(database_name='example.sqlite', table_name='presidents') as td:
+        print(len(td))
+        print(td["Trump"])
+        for x in td:
+            print(x['name'])
