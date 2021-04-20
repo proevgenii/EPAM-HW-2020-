@@ -25,19 +25,22 @@ from typing import List
 import numpy as np
 
 
-def tic_tac_toe_checker(board: List[List]) -> str:
-    def diagonals(board):
-        diagonal_1 = set(board[i][i] for i in range(len(board[0])))
-        diagonal_2 = set(board[2 - i][i] for i in range(len(board[0])))
-        if len(diagonal_1) == 1:
-            return f"wins {board[0][0]}"
-        elif len(diagonal_2) == 1:
-            return f"wins {board[2][2]}"
+def diagonals(board):
+    diagonal_1 = set(board[i][i] for i in range(len(board[0])))
+    diagonal_2 = set(board[2 - i][i] for i in range(len(board[0])))
+    if len(diagonal_1) == 1:
+        return f"wins {board[0][0]}"
+    elif len(diagonal_2) == 1:
+        return f"wins {board[2][2]}"
 
-    def check_rows(board):
-        for row in board:
-            if len(set(row)) == 1:
-                return f"wins {row[0]}"
+
+def check_rows(board):
+    for row in board:
+        if len(set(row)) == 1:
+            return f"wins {row[0]}"
+
+
+def tic_tac_toe_checker(board: List[List]) -> str:
 
     if diagonals(board):
         return diagonals(board)

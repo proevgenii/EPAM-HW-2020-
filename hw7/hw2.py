@@ -20,21 +20,17 @@ Examples:
 """
 
 
-def backspace_compare(first: str, second: str):
-    s = []
-    for c in first:
-        if c == "#":
-            if s:
-                s.pop()
+def clear_string(string: str):
+    clear = []
+    for char in string:
+        if char == "#":
+            if clear:
+                clear.pop()
         else:
-            s.append(c)
+            clear.append(char)
 
-    t = []
-    for c in second:
-        if c == "#":
-            if t:
-                t.pop()
-        else:
-            t.append(c)
+    return "".join(clear)
 
-    return "".join(s) == "".join(t)
+
+def backspace_compare(first_str: str, second_str: str):
+    return clear_string(first_str) == clear_string(second_str)
