@@ -22,7 +22,7 @@ class TableData:
         This method should return the  current amount of rows in the table, an integer >=0
         :return: int
         """
-        self.cursor.execute(f'select count(*) from {self.table_name}')
+        self.cursor.execute(f"select count(*) from {self.table_name}")
         return self.cursor.fetchone()[0]
 
     def __getitem__(self, item):
@@ -32,7 +32,7 @@ class TableData:
         :return: Should return single data row from table with name == 'item'
         """
         self.cursor.execute(
-            f'SELECT * from {self.table_name} where name=:name', {"name": item}
+            f"SELECT * from {self.table_name} where name=:name", {"name": item}
         )
         return self.cursor.fetchone()
 
@@ -72,9 +72,9 @@ class TableData:
         self.conn.close()
 
 
-if __name__ =='__main__':
-    with TableData(database_name='example.sqlite', table_name='presidents') as td:
+if __name__ == "__main__":
+    with TableData(database_name="example.sqlite", table_name="presidents") as td:
         print(len(td))
         print(td["Trump"])
         for x in td:
-            print(x['name'])
+            print(x["name"])
