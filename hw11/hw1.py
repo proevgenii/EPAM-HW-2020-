@@ -33,3 +33,10 @@ class SizesEnum(metaclass=SimplifiedEnum):
 assert ColorsEnum.RED == "RED"
 assert SizesEnum.XL == "XL"
 """
+
+
+class SimplifiedEnum(type):
+    def __new__(mcs, name, bases, dict):
+        for i in dict[f"_{name}__keys"]:
+            dict[i] = i
+        return type.__new__(mcs, name, bases, dict)
