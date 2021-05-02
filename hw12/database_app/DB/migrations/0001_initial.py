@@ -7,34 +7,68 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Homework',
+            name="Homework",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(max_length=100, verbose_name='Текст задания')),
-                ('day_to_do', models.DateTimeField(verbose_name='Количество времени на выполнение задания')),
-                ('created', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "text",
+                    models.CharField(max_length=100, verbose_name="Текст задания"),
+                ),
+                (
+                    "day_to_do",
+                    models.DateTimeField(
+                        verbose_name="Количество времени на выполнение задания"
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Student',
+            name="Student",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=50, verbose_name='Имя')),
-                ('last_name', models.CharField(max_length=50, verbose_name='Фамилия')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=50, verbose_name="Имя")),
+                ("last_name", models.CharField(max_length=50, verbose_name="Фамилия")),
             ],
         ),
         migrations.CreateModel(
-            name='Teachers',
+            name="Teachers",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=50, verbose_name='Имя')),
-                ('last_name', models.CharField(max_length=50, verbose_name='Фамилия')),
-                ('homework_done', models.CharField(max_length=100, verbose_name='Решение ДЗ')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=50, verbose_name="Имя")),
+                ("last_name", models.CharField(max_length=50, verbose_name="Фамилия")),
+                (
+                    "homework_done",
+                    models.CharField(max_length=100, verbose_name="Решение ДЗ"),
+                ),
             ],
         ),
     ]
