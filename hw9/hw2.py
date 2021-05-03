@@ -25,8 +25,4 @@ class Suppressor:
         pass
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        return exc_type is self.er_name
-
-
-with Suppressor(IndexError):
-    [][2]
+        return issubclass(exc_type, self.er_name) or self.er_name is exc_type

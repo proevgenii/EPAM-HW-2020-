@@ -17,7 +17,7 @@ file2.txt:
 from contextlib import ExitStack
 from itertools import cycle, islice
 from pathlib import Path
-from typing import Iterator, List, Union
+from typing import Iterator
 
 
 def merge_sorted_files(*iters):

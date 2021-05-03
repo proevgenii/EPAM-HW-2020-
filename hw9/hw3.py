@@ -10,7 +10,6 @@ For dir with two files from hw1.py:
 6
 
 """
-import os
 from pathlib import Path
 from typing import Callable, Optional
 
@@ -19,23 +18,14 @@ def universal_file_counter(
     dir_path: Path, file_extension: str, tokenizer: Optional[Callable] = None
 ) -> int:
     result = 0
-    files_list = []
-    for file in os.listdir(dir_path):
-        if file.endswith(file_extension):
-            files_list.append(file)
-            with open(file) as fi:
-
-                if not tokenizer:
-                    result += len(list(fi))
-
-                else:
-                    text = fi.read()
-                    result = list(map(tokenizer, text))[-1][0]
+    dir_path = Path(dir_path)
+    file_list = sorted(dir_path.rglob(f"*.txt"))
+    for file in file_list:
+        with open(file) as fi:
+            if not tokenizer:
+                result += len(list(fi))
+            else:
+                text = fi.read()
+                result += sum(1 for _ in tokenizer(text))
 
     return result
-
-
-def universal_file_counter(
-    dir_path: Path, file_extension: str, tokenizer: Optional[Callable] = None
-) -> int:
-    pass
