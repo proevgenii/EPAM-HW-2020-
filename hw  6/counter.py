@@ -11,26 +11,25 @@ reset_instances_counter - сбросить счетчик экземпляров
 import functools
 
 
-
 def instances_counter(cls):
-    counter = 0
+    cls.counter = 0
 
-    @functools.wraps(cls)
-    def cls(*args, **kwargs):
-        nonlocal counter
-        counter += 1
+    def __new__(cls):
+        new_cls = super(cls, cls).__new__(cls)
+        cls.counter += 1
+        return new_cls
 
     def get_created_instances():
-        return counter
+        return cls.counter
 
     cls.get_created_instances = get_created_instances
 
     def reset_instances_counter():
-        nonlocal counter
-        counter_to_return = counter
-        counter = 0
-        return counter_to_return
+        tmp_instances_counter = cls.counter
+        cls.counter = 0
+        return tmp_instances_counter
 
+    cls.__new__ = __new__
     cls.reset_instances_counter = reset_instances_counter
 
     return cls
@@ -38,7 +37,8 @@ def instances_counter(cls):
 
 @instances_counter
 class User:
-    pass
+    def __init__(self):
+        self.params = 3
 
 
 if __name__ == "__main__":
@@ -46,3 +46,5 @@ if __name__ == "__main__":
     user, _, _ = User(), User(), User()
     print(User.get_created_instances())  # 3
     print(User.reset_instances_counter())  # 3
+    print(user.__class__)
+    print(user.params)

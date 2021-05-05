@@ -49,6 +49,7 @@ PEP8 соблюдать строго.
 К названием остальных переменных, классов и тд. подходить ответственно -
 давать логичные подходящие имена.
 """
+
 from collections import defaultdict
 from datetime import datetime, timedelta
 
@@ -64,53 +65,53 @@ class Homework:
         self.text = task_text
         self.day_to_do = day_to_do
         self.deadline = timedelta(day_to_do)
-
-    created = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+        self.created = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 
     def is_active(self):
         return bool(timedelta(days=self.day_to_do))
 
 
 class HomeworkResult:
-    def __init__(self, solution: str, author, Homework: Homework):
+    def __init__(self, solution: str, author, homework):
         self.solution = solution
         self.author = author
-        self.homework = Homework
-        if not self.homework.isinstance(Homework):
+        self.homework = homework
+        self.created = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+        if not isinstance(self.homework, Homework):
             raise AttributeError("You gave a not Homework object")
-
-    created = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 
 
 class Teacher:
+    homework_done = defaultdict(set)
+
     def __init__(self, first_name, last_name):
         self.first_name = first_name
         self.last_name = last_name
 
-    homework_done = defaultdict(set)
-
-    def create_homework(self, task_text: str, day_to_do: int):
+    @staticmethod
+    def create_homework(task_text: str, day_to_do: int):
         return Homework(task_text, day_to_do)
 
     def check_homework(self, homeworkresult):
-        if len(HomeworkResult.solution) > 5:
-            self.homework_done.append(HomeworkResult.solution)
+        if len(homeworkresult.solution) > 5:
+            self.homework_done.append(homeworkresult.solution)
             return True
         else:
             return False
 
-    def reset_results(self, *args):
-        if isinstance(args, Homework):
-            self.homework_done.pop(HomeworkResult.solution)
-        elif args is None:
+    def reset_results(self, hw):
+        if isinstance(hw, Homework):
+            self.homework_done.pop(hw.solution)
+        elif hw is None:
             self.homework_done.clear()
 
 
 class Student(Teacher):
-    def do_homework(self, Homework, result: str):
-        if Homework.is_active():
-            HomeworkResult.solution = result
-            return HomeworkResult
+    @classmethod
+    def do_homework(cls, homework, result: str):
+        HomeworkResult.author = cls
+        if homework.is_active():
+            return HomeworkResult(solution=result, author=cls, homework=homework)
         else:
             raise DeadlineError("You are late")
 
@@ -121,18 +122,24 @@ if __name__ == "__main__":
 
     lazy_student = Student("Roman", "Petrov")
     good_student = Student("Lev", "Sokolov")
+    print(lazy_student.first_name, good_student.first_name)
 
     oop_hw = opp_teacher.create_homework("Learn OOP", 1)
     docs_hw = opp_teacher.create_homework("Read docs", 5)
+    print(oop_hw.text, docs_hw.text)
 
     result_1 = good_student.do_homework(oop_hw, "I have done this hw")
     result_2 = good_student.do_homework(docs_hw, "I have done this hw too")
     result_3 = lazy_student.do_homework(docs_hw, "done")
+    print(result_1.solution)
+    print(result_2.solution)
+    print(result_3.solution)
+
     try:
         result_4 = HomeworkResult(good_student, "fff", "Solution")
     except Exception:
         print("There was an exception here")
-    opp_teacher.check_homework(result_1)
+    opp_teacher.check_homework(result_2)
     temp_1 = opp_teacher.homework_done
 
     advanced_python_teacher.check_homework(result_1)
