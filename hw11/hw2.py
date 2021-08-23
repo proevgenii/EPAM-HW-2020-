@@ -28,3 +28,12 @@ assert order_1.final_price() == 50
 order_2 = Order(100, elder_discount)
 assert order_1.final_price() == 10
 """
+
+
+class Order:
+    def __init__(self, price, discount=None):
+        self.price = price
+        self.discount = discount
+
+    def final_price(self):
+        return self.discount(self) if self.discount else self.price
